@@ -134,7 +134,10 @@ def list_expenses():
     conn.close()
     return jsonify({'expenses': items, 'total': total})
 
+# Ensure database is initialized when app starts (Render/Gunicorn)
+with app.app_context():
+    init_db()
 
 if __name__ == '__main__':
-    init_db()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
+
